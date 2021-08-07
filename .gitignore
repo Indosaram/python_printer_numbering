@@ -1,2 +1,5 @@
 *.pdf
 *__pycache__*
+
+data.json
+index.html
