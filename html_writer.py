@@ -19,6 +19,7 @@ class HTMLWriter:
             json.dump({"current_number": data["current_number"]}, f)
 
         data = f"""\
+<html>
 <table cellspacing="0" cellpadding="0" border="1" style="width: 159px; height: 163px; font-size: 10pt; border-width: 0px; border-color: rgb(0, 0, 0); border-collapse: collapse; border-style: solid; background-color: rgb(255, 255, 255);" class="">
 <tbody>
 <tr>
@@ -35,7 +36,8 @@ class HTMLWriter:
 </tr>
 </tbody>
 </table>
-<p style="line-height: 160%;"><br></p>"""
+<p style="line-height: 160%;"><br></p>
+</html>"""
 
         with open("index.html", "w") as file:
             file.write(data)

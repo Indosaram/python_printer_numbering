@@ -1,5 +1,6 @@
 import os
 import sys
+import pathlib
 
 from PyQt5.QtWidgets import (
     QApplication,
@@ -26,7 +27,9 @@ class Form(QWidget):
         self.html_writer.initialize()
         self.html_writer.write()
 
-        index_path = "file://" + os.path.join(os.getcwd(), "index.html")
+        self.filepath = os.path.join(os.getcwd(), "index.html")
+        windows_path = pathlib.PureWindowsPath(self.filepath)
+        index_path = windows_path.as_uri()
         self.home = QUrl(index_path)
 
         hbox = QHBoxLayout()
@@ -54,7 +57,7 @@ class Form(QWidget):
 
     def onPrint(self):
         printer = QPrinter()
-        printer.setResolution(QPrinter.HighResolution)
+        printer.setResolution(120)
         printer.setPageSize(QPrinter.A4)
         loop = QEventLoop()
         result = False
