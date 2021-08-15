@@ -12,7 +12,7 @@ class HTMLWriter:
             json.dump(data, f)
 
     def write(self):
-        with open(self.filename, "r") as f:
+        with open(self.filename, "r", encoding="utf-8-sig") as f:
             data = json.load(f)
         data["current_number"] += 1
         with open(self.filename, "w", encoding="utf-8-sig") as f:

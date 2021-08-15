@@ -1,5 +1,8 @@
 # cache
 *__pycache__*
+build/
+dist/
+main.spec
 
 # output
 data.json
