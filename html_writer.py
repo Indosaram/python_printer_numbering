@@ -39,7 +39,7 @@ class HTMLWriter:
 <p style="line-height: 160%;"><br></p>
 </html>"""
 
-        with open("index.html", "w") as file:
+        with open("index.html", "w", encoding="utf-8-sig") as file:
             file.write(data)
 
     @property
