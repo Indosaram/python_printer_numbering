@@ -1,5 +1,10 @@
-*.pdf
+# cache
 *__pycache__*
 
+# output
 data.json
 index.html
+*.pdf
+
+# etc
+.DS_Store

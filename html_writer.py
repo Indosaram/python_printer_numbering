@@ -15,7 +15,7 @@ class HTMLWriter:
         with open(self.filename, "r") as f:
             data = json.load(f)
         data["current_number"] += 1
-        with open(self.filename, "w") as f:
+        with open(self.filename, "w", encoding="utf-8-sig") as f:
             json.dump({"current_number": data["current_number"]}, f)
 
         data = f"""\
