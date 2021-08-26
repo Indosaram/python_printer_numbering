@@ -4,6 +4,8 @@ import pathlib
 
 from PyQt5.QtWidgets import (
     QApplication,
+    QLineEdit,
+    QMessageBox,
     QWidget,
     QPushButton,
     QVBoxLayout,
@@ -24,15 +26,21 @@ class Form(QWidget):
         super().__init__()
 
         self.html_writer = HTMLWriter()
-        self.html_writer.write("홍길동")
+        self.html_writer.write()
 
         self.filepath = os.path.join(os.getcwd(), "index.html")
         windows_path = pathlib.PureWindowsPath(self.filepath)
         index_path = windows_path.as_uri()
         self.home = QUrl(index_path)
 
+        self.text_input = QLineEdit()
+        self.text_send = QPushButton('Search')
+        self.text_send.clicked.connect(self.on_click_test_send_btn)
+
         hbox = QHBoxLayout()
         self.btn_prn = QPushButton('Print')
+        hbox.addWidget(self.text_input)
+        hbox.addWidget(self.text_send)
         hbox.addWidget(self.btn_prn)
 
         self.webview = QWebEngineView()
@@ -44,15 +52,21 @@ class Form(QWidget):
 
         self.setWindowTitle('레이블 출력기')
         self.setLayout(vbox)
+        self.vbox = vbox
 
         QApplication.instance().installEventFilter(self)
         self.btn_prn.clicked.connect(self.onPrint)
 
-    def eventFilter(self, obj, e):
-        if e.type() == QEvent.KeyPress and e.key() == Qt.Key_Return:
-            self.onMove()
-            return True
-        return super().eventFilter(obj, e)
+    def on_click_test_send_btn(self):
+        if not self.html_writer.write(self.text_input.text()):
+            QMessageBox.question(
+                self,
+                'Warning',
+                '회원이 존재하지 않습니다.',
+                QMessageBox.Ok,
+                QMessageBox.NoButton,
+            )
+        self.webview.load(self.home)
 
     def onPrint(self):
         printer = QPrinter()

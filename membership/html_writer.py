@@ -11,8 +11,13 @@ class HTMLWriter:
             for id, name in reader:
                 self.data[name] = id
 
-    def write(self, name):
+    def write(self, name=""):
         today = datetime.datetime.today()
+
+        num = self.data.get(name, "")
+        member_name = ""
+        if num:
+            member_name = name
 
         data = f"""\
 <html>
@@ -28,7 +33,7 @@ class HTMLWriter:
     <p class="c2"></p>
     <p class="c2"></p>
     <p class="c2"></p>
-    <p class="c7"><span class="c5">일련번호 {self.data[name]}</span></p>
+    <p class="c7"><span class="c5">일련번호 {num}</span></p>
     <p class="c2"></p>
     <p class="c2"></p>
     <p class="c2"></p>
@@ -38,7 +43,7 @@ class HTMLWriter:
     <p class="c2"></p>
     <p class="c2"></p>
     <p class="c2"></p>
-    <p class="c1"><span class="c3">이름 {name}</span></p>
+    <p class="c1"><span class="c3">이름 {member_name}</span></p>
     <p class="c2"></p>
     <p class="c2"></p>
     <p class="c2"></p>
@@ -56,6 +61,8 @@ class HTMLWriter:
 
         with open("index.html", "w", encoding="utf-8-sig") as file:
             file.write(data)
+
+        return True if num else False
 
 
 if __name__ == "__main__":
